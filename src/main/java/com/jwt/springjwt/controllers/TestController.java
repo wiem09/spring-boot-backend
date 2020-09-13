@@ -23,7 +23,12 @@ public class TestController {
 
 	@GetMapping("/enseignant")
 	@PreAuthorize("hasRole('ROLE_ENSEIGNANT')")
-	public String moderatorAccess() {
+	public String enseignantAccess() {
+		return "enseignant Board.";
+	}
+	@GetMapping("/etudiant")
+	@PreAuthorize("hasRole('ROLE_ETUDIANT')")
+	public String etudiantAccess() {
 		return "enseignant Board.";
 	}
 

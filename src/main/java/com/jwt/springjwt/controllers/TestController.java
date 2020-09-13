@@ -24,17 +24,17 @@ public class TestController {
 	@GetMapping("/enseignant")
 	@PreAuthorize("hasRole('ROLE_ENSEIGNANT')")
 	public String enseignantAccess() {
-		return "enseignant Board.";
+		return " welcome to enseignant Board.";
 	}
 	@GetMapping("/etudiant")
 	@PreAuthorize("hasRole('ROLE_ETUDIANT')")
 	public String etudiantAccess() {
-		return "enseignant Board.";
+		return " welcome to enseignant Board.";
 	}
 
 	@GetMapping("/admin")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String adminAccess() {
-		return "Admin Board.";
+		return "welcome to Admin Board.";
 	}
 }

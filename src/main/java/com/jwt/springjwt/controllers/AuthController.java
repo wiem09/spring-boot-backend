@@ -6,12 +6,16 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.jwt.springjwt.models.Enseignant;
+import com.jwt.springjwt.models.Etudiant;
 import com.jwt.springjwt.models.Role;
 import com.jwt.springjwt.models.User;
 import com.jwt.springjwt.payload.request.LoginRequest;
 import com.jwt.springjwt.payload.request.SignupRequest;
 import com.jwt.springjwt.payload.response.JwtResponse;
 import com.jwt.springjwt.payload.response.MessageResponse;
+import com.jwt.springjwt.repository.EnseignantRepository;
+import com.jwt.springjwt.repository.EtudiantRepository;
 import com.jwt.springjwt.repository.RoleRepository;
 import com.jwt.springjwt.repository.UserRepository;
 import com.jwt.springjwt.security.jwt.JwtUtils;
@@ -38,6 +42,10 @@ public class AuthController {
 
 	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	EnseignantRepository enseignantRepository;
+	@Autowired
+	EtudiantRepository etudiantRepository;
 
 	@Autowired
 	RoleRepository roleRepository;
@@ -89,13 +97,25 @@ public class AuthController {
 					.body(new MessageResponse("Error: set valid role please!"));
 		}
 		Role role=roleRepository.findByName(signUpRequest.getRole());
-
+		if(signUpRequest.getRole().equals("ROLE_ENSEIGNANT")){
+			Enseignant e=new Enseignant(signUpRequest.getUsername(),signUpRequest.getEmail(),encoder.encode(signUpRequest.getPassword()),role,"NCONTRAT");
+			enseignantRepository.save(e);
+			return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+		}
+		if(signUpRequest.getRole().equals("ROLE_ETUDIANT")){
+			Etudiant e=new Etudiant(signUpRequest.getUsername(),signUpRequest.getEmail(),encoder.encode(signUpRequest.getPassword()),role,"NCIN");
+			etudiantRepository.save(e);
+			return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+		}
+//		if(signUpRequest.getRole()==""){
+//
+//		}
 		// Create new user's account
-		User user = new User(signUpRequest.getUsername(),
-							 signUpRequest.getEmail(),
-							 encoder.encode(signUpRequest.getPassword()),role);
-		userRepository.save(user);
+//		User user = new User(signUpRequest.getUsername(),
+//							 signUpRequest.getEmail(),
+//							 encoder.encode(signUpRequest.getPassword()),role);
+//		userRepository.save(user);
 
-		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+		return ResponseEntity.badRequest().body("no user");
 	}
 }

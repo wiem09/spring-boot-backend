@@ -6,6 +6,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="user_role",
+		discriminatorType = DiscriminatorType.STRING)
 @Table(	name = "users", 
 		uniqueConstraints = { 
 			@UniqueConstraint(columnNames = "username"),

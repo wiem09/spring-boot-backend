@@ -29,7 +29,7 @@ public class TestController {
 	@GetMapping("/etudiant")
 	@PreAuthorize("hasRole('ROLE_ETUDIANT')")
 	public String etudiantAccess() {
-		return " welcome to enseignant Board.";
+		return " welcome to etudiant Board.";
 	}
 
 	@GetMapping("/admin")

@@ -18,7 +18,10 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+@NotBlank
+private String nom;
+@NotBlank
+private String prenom;
 	@NotBlank
 	@Size(max = 20)
 	private String username;
@@ -36,7 +39,9 @@ public class User {
 	public User() {
 	}
 
-	public User(String username, String email, String password,Role role) {
+	public User(String nom,String prenom,String username, String email, String password,Role role) {
+		this.nom=nom;
+		this.prenom=prenom;
 		this.username = username;
 		this.email = email;
 		this.password = password;

@@ -10,6 +10,7 @@ import com.jwt.springjwt.repository.EnseignantRepository;
 import com.jwt.springjwt.repository.EtudiantRepository;
 import com.jwt.springjwt.repository.RoleRepository;
 import com.jwt.springjwt.repository.UserRepository;
+import com.jwt.springjwt.services.EtudianService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +23,8 @@ import java.util.List;
 @RequestMapping("/api/etudiant")
 public class EtudiantController {
     @Autowired
+    EtudianService etudianService;
+    @Autowired
     EtudiantRepository etudiantRepository;
     @Autowired
     UserRepository userRepository;
@@ -32,8 +35,11 @@ public class EtudiantController {
     @Autowired
     PasswordEncoder encoder;
     @GetMapping("/all")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Etudiant> allEtudiant() {
         return  etudiantRepository.findAll();
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getOne(@PathVariable Long id) { return etudianService.getOne(id); }
 
 }

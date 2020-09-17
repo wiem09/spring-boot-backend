@@ -1,4 +1,4 @@
-package com.jwt.springjwt.security.services;
+package com.jwt.springjwt.security.configuration;
 
 import java.util.*;
 

@@ -1,6 +1,5 @@
 package com.jwt.springjwt.controllers;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +17,7 @@ import com.jwt.springjwt.repository.EtudiantRepository;
 import com.jwt.springjwt.repository.RoleRepository;
 import com.jwt.springjwt.repository.UserRepository;
 import com.jwt.springjwt.security.jwt.JwtUtils;
-import com.jwt.springjwt.security.services.UserDetailsImpl;
+import com.jwt.springjwt.security.configuration.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -99,19 +98,6 @@ public class AuthController {
 			enseignantRepository.save(e);
 			return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 		}
-//		if(signUpRequest.getRole().equals("ROLE_ETUDIANT")){
-//			Etudiant e=new Etudiant(signsignUpRequest.getUsername(),signUpRequest.getEmail(),encoder.encode(signUpRequest.getPassword()),role,"NCIN");
-//			etudiantRepository.save(e);
-//			return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
-//		}
-//		if(signUpRequest.getRole()==""){
-//
-//		}
-		// Create new user's account
-//		User user = new User(signUpRequest.getUsername(),
-//							 signUpRequest.getEmail(),
-//							 encoder.encode(signUpRequest.getPassword()),role);
-//		userRepository.save(user);
 
 		return ResponseEntity.badRequest().body("no user");
 	}

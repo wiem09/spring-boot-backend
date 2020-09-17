@@ -1,10 +1,13 @@
 package com.jwt.springjwt.security;
 
 import com.jwt.springjwt.security.jwt.AuthEntryPointJwt;
-import com.jwt.springjwt.security.services.UserDetailsServiceImpl;
+import com.jwt.springjwt.security.configuration.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -17,7 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.jwt.springjwt.security.jwt.AuthTokenFilter;
-
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -63,4 +66,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
+
 }
